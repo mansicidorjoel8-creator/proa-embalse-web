@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Directivo | PROA Embalse</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-body">
+
+    <!-- PANTALLA DE LOGIN -->
+    <div id="login-screen" class="login-container">
+        <div class="logo" style="justify-content: center; margin-bottom: 25px;">
+            <span class="logo-badge">PROA</span>
+            <span>Acceso Privado</span>
+        </div>
+        <p class="admin-hint" style="margin-bottom: 20px;">Ingrese la clave institucional para acceder al panel de gestión.</p>
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <input type="password" id="admin-pass" placeholder="Contraseña..." required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+        <p style="margin-top: 20px;"><a href="index.html" style="color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600;"><i class="fa-solid fa-arrow-left"></i> Volver a la web pública</a></p>
+    </div>
+
+    <!-- CONTENIDO DEL PANEL DIRECTIVO -->
+    <div id="admin-content" class="admin-panel-content">
+        <div class="main-container" style="margin-top: 40px; margin-bottom: 40px;">
+            <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div style="text-align: left;">
+                    <h2>Panel Directivo / Docente</h2>
+                    <p>Gestión integral de contenidos (Fotos, Novedades y Proyectos)</p>
+                </div>
+                <a href="index.html" class="btn btn-outline"><i class="fa-solid fa-globe"></i> Ver Sitio Público</a>
+            </div>
+
+            <!-- SECCIÓN 1: SUBIR FOTOS DEL INICIO -->
+            <h2 class="admin-section-title"><i class="fa-solid fa-images"></i> Gestión de Galería de Fotos (Inicio)</h2>
+            <div class="admin-wrapper mb-5">
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-upload"></i> Subir Nueva Foto</h3>
+                    <p class="admin-hint">Podés seleccionar un archivo de tu compu o ingresar un enlace de imagen.</p>
+                    <form id="image-form" onsubmit="handleNewImage(event)">
+                        <div class="form-group">
+                            <label>Epígrafe / Título de la imagen</label>
+                            <input type="text" id="img-title" required placeholder="Ej: Laboratorio de Robótica 2026">
+                        </div>
+                        <div class="form-group">
+                            <label>Seleccionar Archivo de Imagen (Desde tu compu)</label>
+                            <input type="file" id="img-file" accept="image/*" onchange="previewFileImage(this)">
+                        </div>
+                        <div class="form-group">
+                            <label>O pegar URL de imagen (Opcional)</label>
+                            <input type="url" id="img-url" placeholder="https://ejemplo.com/foto.jpg">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Agregar a la Galería <i class="fa-solid fa-plus"></i></button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-list"></i> Fotos de la Galería</h3>
+                    <p class="admin-hint">Listado de imágenes visibles en el inicio.</p>
+                    <div id="admin-images-list" class="admin-list"></div>
+                    <button class="btn btn-danger mt-3" onclick="resetDefaultImages()"><i class="fa-solid fa-rotate-right"></i> Restaurar Fotos Iniciales</button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: GESTIÓN DE NOVEDADES -->
+            <h2 class="admin-section-title"><i class="fa-solid fa-newspaper"></i> Gestión de Novedades y Eventos</h2>
+            <div class="admin-wrapper mb-5">
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-plus-circle"></i> Publicar Nueva Novedad</h3>
+                    <p class="admin-hint">Aparecerá en la pestaña "Novedades".</p>
+                    <form id="news-form" onsubmit="handleNewNews(event)">
+                        <div class="form-group">
+                            <label>Título del Evento / Noticia</label>
+                            <input type="text" id="n-title" required placeholder="Ej: Participación en la Copa Robótica">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha / Período</label>
+                            <input type="text" id="n-date" required placeholder="Ej: Octubre 2026">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="n-category">
+                                <option value="Evento">Evento</option>
+                                <option value="Competencia">Competencia</option>
+                                <option value="Prácticas">Prácticas</option>
+                                <option value="Extensión">Extensión</option>
+                                <option value="Institucional">Institucional</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción / Detalle</label>
+                            <textarea id="n-desc" rows="3" required placeholder="Detalle del acontecimiento..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Publicar Novedad <i class="fa-solid fa-upload"></i></button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-list"></i> Novedades Registradas</h3>
+                    <p class="admin-hint">Listado de eventos activos.</p>
+                    <div id="admin-news-list" class="admin-list"></div>
+                    <button class="btn btn-danger mt-3" onclick="resetDefaultNews()"><i class="fa-solid fa-rotate-right"></i> Restaurar Novedades Iniciales</button>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: GESTIÓN DE PROYECTOS -->
+            <h2 class="admin-section-title"><i class="fa-solid fa-diagram-project"></i> Gestión de Proyectos Estudiantiles</h2>
+            <div class="admin-wrapper">
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-plus-circle"></i> Cargar Nuevo Proyecto</h3>
+                    <p class="admin-hint">Aparecerá en la pestaña "Proyectos".</p>
+                    
+                    <form id="project-form" onsubmit="handleNewProject(event)">
+                        <div class="form-group">
+                            <label>Título del Proyecto</label>
+                            <input type="text" id="p-title" required placeholder="Ej: Monitoreo Ambiental IoT">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="p-category">
+                                <option value="Software">Software / Apps</option>
+                                <option value="IoT">IoT / Hardware</option>
+                                <option value="Robótica">Robótica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción corta</label>
+                            <textarea id="p-desc" rows="3" required placeholder="Breve resumen del proyecto..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Publicar Proyecto <i class="fa-solid fa-upload"></i></button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <h3><i class="fa-solid fa-database"></i> Proyectos Registrados</h3>
+                    <p class="admin-hint">Listado actual en el sistema.</p>
+                    <div id="admin-projects-list" class="admin-list"></div>
+                    <button class="btn btn-danger mt-3" onclick="resetDefaultProjects()"><i class="fa-solid fa-rotate-right"></i> Restaurar Proyectos Iniciales</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 Escuela PROA Experimental Embalse. Todos los derechos reservados.</p>
+    </footer>
+
+    <style>
+        .admin-body {
+            background-color: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .login-container {
+            max-width: 420px;
+            margin: 120px auto;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .admin-panel-content {
+            display: none;
+            flex: 1;
+        }
+        .admin-section-title {
+            font-size: 1.4rem;
+            margin: 40px 0 20px 0;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mb-5 {
+            margin-bottom: 40px;
+        }
+        .admin-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+        .admin-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .admin-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+        }
+        .admin-hint {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .admin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+        .admin-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .badge-mini {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 6px;
+            font-weight: 700;
+        }
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-delete:hover {
+            color: #dc2626;
+        }
+        @media (max-width: 900px) {
+            .admin-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        const CLAVE_SECRETA = "proa2026";
+        let base64ImageString = "";
+
+        const defaultImages = [
+            { id: 1, title: "Edificio y Aulas", url: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" },
+            { id: 2, title: "Laboratorio de Informática", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" },
+            { id: 3, title: "Taller de Robótica e IoT", url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" }
+        ];
+
+        const defaultNews = [
+            { id: 1, title: "Participación en la Copa Robótica", date: "Octubre 2026", category: "Competencia", description: "Estudiantes representaron a la escuela en la Copa Robótica con dispositivos de navegación autónoma desarrollados en el taller." },
+            { id: 2, title: "Taller de Robótica en Villa General Belgrano", date: "Septiembre 2026", category: "Extensión", description: "Alumnos de la especialidad dictaron una jornada intensiva de introducción a la robótica para escuelas de la región." },
+            { id: 3, title: "Pasantías Técnicas en la Central Nuclear Embalse", date: "Junio 2026", category: "Prácticas", description: "Inició el ciclo de prácticas profesionalizantes enfocado en mantenimiento de hardware, soldadura electrónica y desarrollo web." }
+        ];
+
+        const defaultProjects = [
+            { id: 1, title: "Monitoreo Ambiental IoT", category: "IoT", description: "Sistemas embebidos con microcontroladores ESP32 y sensores DHT11 para control de temperatura y automatización." },
+            { id: 2, title: "App Móvil de Gestión 1RM", category: "Software", description: "Aplicación multiplataforma desarrollada en Flutter y Dart para cálculo de cargas y rendimiento deportivo." },
+            { id: 3, title: "Robot Autónomo de Competencia", category: "Robótica", description: "Diseño, armado de circuitos y programación en C++ para participación en torneos provinciales de robótica." }
+        ];
+
+        let images = JSON.parse(localStorage.getItem('proa_images')) || defaultImages;
+        let news = JSON.parse(localStorage.getItem('proa_news')) || defaultNews;
+        let projects = JSON.parse(localStorage.getItem('proa_projects')) || defaultProjects;
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === CLAVE_SECRETA) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                renderAdminImages();
+                renderAdminNews();
+                renderAdminProjects();
+            } else {
+                alert('Contraseña incorrecta.');
+            }
+        }
+
+        // --- GESTIÓN DE GALERÍA DE IMÁGENES ---
+        function previewFileImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64ImageString = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleNewImage(e) {
+            e.preventDefault();
+            const title = document.getElementById('img-title').value;
+            const urlInput = document.getElementById('img-url').value;
+
+            const finalUrl = base64ImageString || urlInput;
+
+            if(!finalUrl) {
+                alert('Por favor selecciona un archivo o ingresa una URL de imagen.');
+                return;
+            }
+
+            images.unshift({ id: Date.now(), title, url: finalUrl });
+            localStorage.setItem('proa_images', JSON.stringify(images));
+
+            document.getElementById('image-form').reset();
+            base64ImageString = "";
+            alert('¡Imagen agregada a la galería de inicio!');
+            renderAdminImages();
+        }
+
+        function renderAdminImages() {
+            const list = document.getElementById('admin-images-list');
+            if(!list) return;
+            list.innerHTML = '';
+
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'admin-item';
+                item.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <img src="${img.url}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px;">
+                        <strong>${img.title}</strong>
+                    </div>
+                    <button class="btn-delete" onclick="deleteImage(${img.id})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteImage(id) {
+            if(confirm('¿Eliminar esta imagen de la galería?')) {
+                images = images.filter(img => img.id !== id);
+                localStorage.setItem('proa_images', JSON.stringify(images));
+                renderAdminImages();
+            }
+        }
+
+        function resetDefaultImages() {
+            if(confirm('¿Restaurar imágenes iniciales?')) {
+                images = defaultImages;
+                localStorage.setItem('proa_images', JSON.stringify(images));
+                renderAdminImages();
+            }
+        }
+
+        // --- GESTIÓN DE NOVEDADES ---
+        function handleNewNews(e) {
+            e.preventDefault();
+            const title = document.getElementById('n-title').value;
+            const date = document.getElementById('n-date').value;
+            const category = document.getElementById('n-category').value;
+            const description = document.getElementById('n-desc').value;
+
+            news.unshift({ id: Date.now(), title, date, category, description });
+            localStorage.setItem('proa_news', JSON.stringify(news));
+
+            document.getElementById('news-form').reset();
+            alert('¡Novedad publicada con éxito!');
+            renderAdminNews();
+        }
+
+        function renderAdminNews() {
+            const list = document.getElementById('admin-news-list');
+            if(!list) return;
+            list.innerHTML = '';
+
+            news.forEach(n => {
+                const item = document.createElement('div');
+                item.className = 'admin-item';
+                item.innerHTML = `
+                    <div><strong>${n.title}</strong> <span class="badge-mini">${n.category}</span></div>
+                    <button class="btn-delete" onclick="deleteNews(${n.id})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteNews(id) {
+            if(confirm('¿Eliminar esta novedad?')) {
+                news = news.filter(n => n.id !== id);
+                localStorage.setItem('proa_news', JSON.stringify(news));
+                renderAdminNews();
+            }
+        }
+
+        function resetDefaultNews() {
+            if(confirm('¿Restaurar novedades iniciales?')) {
+                news = defaultNews;
+                localStorage.setItem('proa_news', JSON.stringify(news));
+                renderAdminNews();
+            }
+        }
+
+        // --- GESTIÓN DE PROYECTOS ---
+        function handleNewProject(e) {
+            e.preventDefault();
+            const title = document.getElementById('p-title').value;
+            const category = document.getElementById('p-category').value;
+            const description = document.getElementById('p-desc').value;
+
+            projects.unshift({ id: Date.now(), title, category, description });
+            localStorage.setItem('proa_projects', JSON.stringify(projects));
+
+            document.getElementById('project-form').reset();
+            alert('¡Proyecto publicado con éxito!');
+            renderAdminProjects();
+        }
+
+        function renderAdminProjects() {
+            const list = document.getElementById('admin-projects-list');
+            if(!list) return;
+            list.innerHTML = '';
+
+            projects.forEach(p => {
+                const item = document.createElement('div');
+                item.className = 'admin-item';
+                item.innerHTML = `
+                    <div><strong>${p.title}</strong> <span class="badge-mini">${p.category}</span></div>
+                    <button class="btn-delete" onclick="deleteProject(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function deleteProject(id) {
+            if(confirm('¿Eliminar este proyecto?')) {
+                projects = projects.filter(p => p.id !== id);
+                localStorage.setItem('proa_projects', JSON.stringify(projects));
+                renderAdminProjects();
+            }
+        }
+
+        function resetDefaultProjects() {
+            if(confirm('¿Restaurar proyectos originales?')) {
+                projects = defaultProjects;
+                localStorage.setItem('proa_projects', JSON.stringify(projects));
+                renderAdminProjects();
+            }
+        }
+    </script>
+</body>
+</html>

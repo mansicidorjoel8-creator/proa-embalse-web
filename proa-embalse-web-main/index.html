@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela PRoA Embalse | Innovación y Tecnología</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+        <div class="nav-container">
+            <!-- Logo y nombre alineados en la esquina superior izquierda -->
+            <div class="logo" onclick="switchTab('inicio')">
+                <img src="logo-proa.png" alt="Logo PRoA" class="nav-logo-img" onerror="this.style.display='none'">
+                <span class="logo-badge logo-proa-font">PRoA</span>
+                <span>Embalse</span>
+            </div>
+
+            <!-- Botón Hamburguesa para Celulares -->
+            <button class="menu-toggle" id="menu-btn" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-links" id="nav-links">
+                <button class="nav-tab active" onclick="switchTab('inicio'); toggleMenu();"><i class="fa-solid fa-house"></i> Inicio</button>
+                <button class="nav-tab" onclick="switchTab('novedades'); toggleMenu();"><i class="fa-solid fa-newspaper"></i> Novedades</button>
+                <button class="nav-tab" onclick="switchTab('modelo'); toggleMenu();"><i class="fa-solid fa-graduation-cap"></i> El Modelo</button>
+                <button class="nav-tab" onclick="switchTab('especialidad'); toggleMenu();"><i class="fa-solid fa-code"></i> Especialidad</button>
+                <button class="nav-tab" onclick="switchTab('proyectos'); toggleMenu();"><i class="fa-solid fa-diagram-project"></i> Proyectos</button>
+                <button class="nav-tab btn-contacto" onclick="switchTab('contacto'); toggleMenu();"><i class="fa-solid fa-paper-plane"></i> Contacto</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="main-container">
+
+        <!-- 1. INICIO -->
+        <section id="inicio" class="tab-content active">
+            <div class="hero-clean">
+                <h1>Escuela <span class="logo-proa-font">PRoA</span> Experimental Embalse</h1>
+                <p>Formando a los desarrolladores, programadores y líderes tecnológicos del mañana con un enfoque basado en proyectos reales e innovación continua.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="switchTab('proyectos')">Ver Proyectos Destacados <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="btn btn-outline" onclick="switchTab('novedades')">Últimas Novedades</button>
+                </div>
+            </div>
+
+            <!-- GALERÍA DE FOTOS DE LA ESCUELA -->
+            <div class="gallery-section">
+                <div id="gallery-grid" class="gallery-grid"></div>
+            </div>
+
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="stat-card">
+                    <h3>Doble Escolaridad</h3>
+                    <p>Jornada extendida con fuerte base técnica, práctica e integral.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Perfil IT</h3>
+                    <p>Especialización orientada al desarrollo de software y nuevas tecnologías.</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Prácticas Reales</h3>
+                    <p>Vínculo directo con el entorno tecnológico e industrial de la región.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. NOVEDADES -->
+        <section id="novedades" class="tab-content">
+            <div class="section-header">
+                <h2>Novedades y Eventos</h2>
+                <p>Acontecimientos, competencias, talleres y novedades de la comunidad educativa</p>
+            </div>
+            <div id="news-grid" class="news-grid"></div>
+        </section>
+
+        <!-- 3. EL MODELO -->
+        <section id="modelo" class="tab-content">
+            <div class="section-header">
+                <h2>El Modelo Educativo <span class="logo-proa-font" style="font-size: 2rem;">PRoA</span></h2>
+                <p>Una estructura pedagógica diseñada para los desafíos del futuro</p>
+            </div>
+            <div class="model-grid">
+                <div class="model-card">
+                    <div class="icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Aprendizaje por Proyectos</h3>
+                    <p>Los alumnos resuelven problemáticas del mundo real aplicando lógica, programación y trabajo colaborativo.</p>
+                </div>
+                <div class="model-card">
+                    <div class="icon-box"><i class="fa-solid fa-clock"></i></div>
+                    <h3>Jornada Extendida</h3>
+                    <p>Mayor tiempo institucional dedicado a talleres intensivos, inglés aplicado y espacio para la experimentación.</p>
+                </div>
+                <div class="model-card">
+                    <div class="icon-box"><i class="fa-solid fa-handshake"></i></div>
+                    <h3>Prácticas Profesionalizantes</h3>
+                    <p>Vinculación concreta con empresas, instituciones e industrias locales del sector tecnológico y energético.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ESPECIALIDAD -->
+        <section id="especialidad" class="tab-content">
+            <div class="section-header">
+                <h2>Tecnicatura en Desarrollo de Software</h2>
+                <p>Dominio técnico de las tecnologías de mayor demanda</p>
+            </div>
+            <div class="tech-layout">
+                <div class="tech-info">
+                    <h3>Formación Integral en IT</h3>
+                    <p>A lo largo de la trayectoria escolar, los estudiantes abordan lógica de programación, arquitectura de datos y desarrollo de proyectos reales.</p>
+                    <ul class="tech-checklist">
+                        <li><i class="fa-solid fa-check-circle"></i> Programación orientada a objetos (Python, Java, C++).</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Desarrollo Web Full-Stack (HTML5, CSS3, JavaScript).</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Gestión y modelado de Bases de Datos (SQL, MySQL).</li>
+                        <li><i class="fa-solid fa-check-circle"></i> Sistemas embebidos, IoT y Robótica educativa.</li>
+                    </ul>
+                </div>
+                <div class="tech-stack-box">
+                    <h4>Ecosistema Tecnológico</h4>
+                    <div class="badge-container">
+                        <span class="tech-badge"><i class="fa-brands fa-python"></i> Python</span>
+                        <span class="tech-badge"><i class="fa-brands fa-js"></i> JavaScript</span>
+                        <span class="tech-badge"><i class="fa-brands fa-java"></i> Java</span>
+                        <span class="tech-badge"><i class="fa-solid fa-database"></i> SQL</span>
+                        <span class="tech-badge"><i class="fa-solid fa-microchip"></i> IoT & C++</span>
+                        <span class="tech-badge"><i class="fa-brands fa-git-alt"></i> Git & GitHub</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GALERÍA DE ESPACIOS TÉCNICOS (3 IMÁGENES) -->
+            <div class="specialty-spaces-section">
+                <div class="spaces-grid">
+                    <div class="space-card">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80" alt="Sala de Programación">
+                        <div class="space-caption">
+                            <h4>Sala de Programación</h4>
+                        </div>
+                    </div>
+                    <div class="space-card">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="Sala de Robótica">
+                        <div class="space-caption">
+                            <h4>Sala de Robótica</h4>
+                        </div>
+                    </div>
+                    <div class="space-card">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Laboratorio de Ciencias">
+                        <div class="space-caption">
+                            <h4>Laboratorio de Ciencias</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. PROYECTOS -->
+        <section id="proyectos" class="tab-content">
+            <div class="section-header">
+                <h2>Proyectos Estudiantiles</h2>
+                <p>Muestra oficial de los proyectos y soluciones técnicas desarrolladas en la escuela</p>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterProjects('all')">Todos</button>
+                <button class="filter-btn" onclick="filterProjects('Software')">Software / Apps</button>
+                <button class="filter-btn" onclick="filterProjects('IoT')">IoT / Hardware</button>
+                <button class="filter-btn" onclick="filterProjects('Robótica')">Robótica</button>
+            </div>
+
+            <div id="projects-grid" class="projects-grid"></div>
+        </section>
+
+        <!-- 6. CONTACTO -->
+        <section id="contacto" class="tab-content">
+            <div class="section-header">
+                <h2>Contacto y Ubicación</h2>
+                <p>Comunicate con nuestra institución o acércate a nuestras instalaciones</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3><i class="fa-solid fa-location-dot"></i> Ubicación</h3>
+                    <p>Escuela PRoA Experimental Embalse<br>Embalse de Calamuchita, Córdoba, Argentina.</p>
+                </div>
+                <div class="contact-card">
+                    <h3><i class="fa-solid fa-envelope"></i> Canales de Atención</h3>
+                    <p>Correo institucional: contacto@proaembalse.edu.ar<br>Horario: Lunes a Viernes de 08:00 a 18:00 hs.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2026 Escuela PRoA Experimental Embalse. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT DE NAVEGACIÓN Y CARGA DE DATOS -->
+    <script>
+        const defaultImages = [
+            { id: 1, title: "Edificio y Aulas", url: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80" },
+            { id: 2, title: "Laboratorio de Informática", url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80" },
+            { id: 3, title: "Taller de Robótica e IoT", url: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" }
+        ];
+
+        const defaultNews = [
+            { id: 1, title: "Participación en la Copa Robótica", date: "Octubre 2026", category: "Competencia", description: "Estudiantes representaron a la escuela en la Copa Robótica con dispositivos de navegación autónoma desarrollados en el taller." },
+            { id: 2, title: "Taller de Robótica en Villa General Belgrano", date: "Septiembre 2026", category: "Extensión", description: "Alumnos de la especialidad dictaron una jornada intensiva de introducción a la robótica para escuelas de la región." },
+            { id: 3, title: "Pasantías Técnicas en la Central Nuclear Embalse", date: "Junio 2026", category: "Prácticas", description: "Inició el ciclo de prácticas profesionalizantes enfocado en mantenimiento de hardware, soldadura electrónica y desarrollo web." }
+        ];
+
+        const defaultProjects = [
+            { id: 1, title: "Monitoreo Ambiental IoT", category: "IoT", description: "Sistemas embebidos con microcontroladores ESP32 y sensores DHT11 para control de temperatura y automatización." },
+            { id: 2, title: "App Móvil de Gestión 1RM", category: "Software", description: "Aplicación multiplataforma desarrollada en Flutter y Dart para cálculo de cargas y rendimiento deportivo." },
+            { id: 3, title: "Robot Autónomo de Competencia", category: "Robótica", description: "Diseño, armado de circuitos y programación en C++ para participación en torneos provinciales de robótica." }
+        ];
+
+        let images = JSON.parse(localStorage.getItem('proa_images')) || defaultImages;
+        let news = JSON.parse(localStorage.getItem('proa_news')) || defaultNews;
+        let projects = JSON.parse(localStorage.getItem('proa_projects')) || defaultProjects;
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event && event.currentTarget && event.currentTarget.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderGallery();
+            renderNews();
+            renderProjects();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-card';
+                item.innerHTML = `<img src="${img.url}" alt="${img.title}">`;
+                grid.appendChild(item);
+            });
+        }
+
+        function renderNews() {
+            const grid = document.getElementById('news-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            if(news.length === 0) {
+                grid.innerHTML = `<p class="no-projects">No hay novedades registradas por el momento.</p>`;
+                return;
+            }
+
+            news.forEach(n => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <div class="news-meta">
+                        <span class="project-tag">${n.category}</span>
+                        <span class="news-date"><i class="fa-regular fa-calendar"></i> ${n.date}</span>
+                    </div>
+                    <h3>${n.title}</h3>
+                    <p>${n.description}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById('projects-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<p class="no-projects">No hay proyectos en esta categoría todavía.</p>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <span class="project-tag">${p.category}</span>
+                    <h3>${p.title}</h3>
+                    <p>${p.description}</p>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProjects(cat) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            renderProjects(cat);
+        }
+
+        window.onload = () => {
+            renderGallery();
+            renderNews();
+            renderProjects();
+        };
+
+        // Función para abrir/cerrar el menú en celulares
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            if(navLinks) {
+                navLinks.classList.toggle('active');
+            }
+        }
+
+        const menuBtn = document.getElementById('menu-btn');
+        if(menuBtn) {
+            menuBtn.addEventListener('click', toggleMenu);
+        }
+    </script>
+</body>
+</html>
